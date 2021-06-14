@@ -63,12 +63,14 @@ router.delete('/productos/:id', (req,res)=>{
     
 })
 router.put('/productos/actualizar/:id', (req,res) => {
-    let { id } = req.params
+    let {id}  = req.params
     let producto = req.body
     if(!producto){
         res.send('No se ha encontrado ningun producto con ese id!')
     }
     productos.actualizar(producto,id)
+    let data = JSON.stringify(productos,null,2);
+    fs.writeFileSync(ruta, data, 'utf-8')
     res.json(producto)
 })
 
